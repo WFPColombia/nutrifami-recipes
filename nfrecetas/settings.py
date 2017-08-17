@@ -25,12 +25,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ')936-3sr09-zt6kbs89=6mcsak3z36ktl^4fi^_hsxh4dq7z^2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if platform.linux_distribution()[0] == 'debian':
+if platform.linux_distribution()[2] == 'Maipo':
     DEBUG = True
-    ALLOWED_HOSTS = ["recetas.tunaroza.com"]
 else:
     DEBUG = True
-    ALLOWED_HOSTS = ["127.0.0.1"]
+
+ALLOWED_HOSTS = ["127.0.0.1", "recetas.nutrifami.org"]
 
 
 # Application definition
@@ -89,16 +89,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'nfrecetas',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '',
+        'USER': 'nfrecetas',
+        'PASSWORD': 'nfrecetas.pro.2017.web',
+        'HOST': 'nutrifami.cwy5i3r1f6xk.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
     }
 }
-
-if platform.linux_distribution()[0] == 'debian':
-    DATABASES['default']['USER'] = 'nfrecetas'
-    DATABASES['default']['PASSWORD'] = 'nfrecetas.pro.2017.web'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
