@@ -5,7 +5,7 @@ from django.contrib import admin
 from django import forms
 from django.contrib import admin
 from django.core.files.images import get_image_dimensions
-from recetas.models import Receta, Ingrediente, Implemento, Paso
+from recetas.models import Receta, Ingrediente, Implemento, Paso, Version
 
 
 class RecetaAdmin(admin.ModelAdmin):
@@ -36,7 +36,12 @@ class PasoAdmin(admin.ModelAdmin):
     list_filter = ('referencia',)
 
 
+class VersionAdmin(admin.ModelAdmin):
+    list_display = ('version', 'fecha')
+
+
 admin.site.register(Receta, RecetaAdmin)
 admin.site.register(Ingrediente, IngredienteAdmin)
 admin.site.register(Implemento, ImplepementoAdmin)
 admin.site.register(Paso, PasoAdmin)
+admin.site.register(Version, VersionAdmin)

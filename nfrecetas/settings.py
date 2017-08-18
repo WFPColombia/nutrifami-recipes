@@ -26,7 +26,7 @@ SECRET_KEY = ')936-3sr09-zt6kbs89=6mcsak3z36ktl^4fi^_hsxh4dq7z^2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if platform.linux_distribution()[2] == 'Maipo':
-    DEBUG = True
+    DEBUG = False
 else:
     DEBUG = True
 
@@ -85,26 +85,43 @@ WSGI_APPLICATION = 'nfrecetas.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nfrecetas',
-        'USER': 'nfrecetas',
-        'PASSWORD': 'nfrecetas.pro.2017.web',
-        'HOST': 'nutrifami.cwy5i3r1f6xk.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
+
+if platform.linux_distribution()[2] == 'Maipo':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'nfrecetas',
+            'USER': 'nfrecetas',
+            'PASSWORD': 'nfrecetas.pro.2017.web',
+            'HOST': 'nutrifami.cwy5i3r1f6xk.us-east-1.rds.amazonaws.com',
+            'PORT': '3306',
+        }
     }
-}
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    )
-}
-
+    REST_FRAMEWORK = {
+        'DEFAULT_PERMISSION_CLASSES': (
+            'rest_framework.permissions.IsAuthenticated',
+        ),
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework.authentication.TokenAuthentication',
+        )
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'nfrecetas',
+            'USER': 'root',
+            'PASSWORD': '',
+            'HOST': '127.0.0.1',
+            'PORT': '',
+        }
+    }
+    REST_FRAMEWORK = {
+        'DEFAULT_PERMISSION_CLASSES': (
+        ),
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+        )
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -130,7 +147,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ES-es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 

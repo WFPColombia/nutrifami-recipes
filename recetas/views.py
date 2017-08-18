@@ -1,5 +1,6 @@
-from recetas.models import Receta, Ingrediente, Implemento
-from recetas.serializers import RecetaSerializer, IngredienteSerializer, ImplementoSerializer
+# -*- coding: utf-8 -*-
+from recetas.models import Receta, Ingrediente, Implemento, Version
+from recetas.serializers import RecetaSerializer, IngredienteSerializer, ImplementoSerializer, VersionSerializer
 from rest_framework import mixins, generics, permissions, viewsets
 from rest_framework.decorators import api_view, detail_route
 from rest_framework.response import Response
@@ -44,6 +45,24 @@ class ImplementoViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class VersionViewSet(viewsets.ModelViewSet):
+    queryset = Version.objects.all()
+    serializer_class = VersionSerializer
+
+    # Mostrar solo la última versión
+    def get_queryset(self):
+        result = (self.queryset.filter().order_by('-fecha')).values()
+
+        response = [
+            {
+                'version': result[0]['version'],
+                'fecha': result[0]['fecha']
+            },
+
+        ]
+        return response
 
 
 @api_view(['GET'])

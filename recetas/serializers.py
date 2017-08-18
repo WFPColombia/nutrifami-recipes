@@ -3,7 +3,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 from rest_framework import serializers
-from recetas.models import Receta, Ingrediente, Implemento
+from recetas.models import Receta, Ingrediente, Implemento, Version
 from django.contrib.auth.models import User
 
 
@@ -19,6 +19,13 @@ class ImplementoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Implemento
         fields = ('nombre', 'descripcion')
+
+
+class VersionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Version
+        fields = ('version', 'fecha')
 
 
 class RecetaSerializer(serializers.ModelSerializer):
