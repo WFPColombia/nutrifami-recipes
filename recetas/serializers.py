@@ -3,7 +3,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 from rest_framework import serializers
-from recetas.models import Receta, Ingrediente, Implemento, Version, Paso
+from recetas.models import Receta, Ingrediente, Implemento, Version, Paso, MeGusta, Compartido
 from django.contrib.auth.models import User
 
 
@@ -28,6 +28,29 @@ class PasoSerializer(serializers.ModelSerializer):
         fields = ('orden', 'paso')
 
 
+class PasoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Paso
+        fields = ('orden', 'paso')
+
+
+class MeGustaSerializer(serializers.ModelSerializer):
+    fecha = serializers.ReadOnlyField()
+
+    class Meta:
+        model = MeGusta
+        fields = ('receta', 'fecha', 'usuario_id')
+
+
+class CompartidoSerializer(serializers.ModelSerializer):
+    fecha = serializers.ReadOnlyField()
+
+    class Meta:
+        model = Compartido
+        fields = ('receta', 'fecha', 'usuario_id')
+
+
 class VersionSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -37,15 +60,22 @@ class VersionSerializer(serializers.ModelSerializer):
 
 class RecetaSerializer(serializers.ModelSerializer):
 
-    owner = serializers.ReadOnlyField(source='owner.username')
     ingredientes = IngredienteSerializer(many=True, read_only=True)
     implementos = ImplementoSerializer(many=True, read_only=True)
     pasos = PasoSerializer(many=True, read_only=True)
+    me_gustas = serializers.IntegerField(
+        source='me_gustas.count',
+        read_only=True
+    )
+    compartidos = serializers.IntegerField(
+        source='compartidos.count',
+        read_only=True
+    )
 
     class Meta:
         model = Receta
-        fields = ('nombre', 'imagen', 'region', 'porciones', 'tiempo_preparacion',
-                  'ingredientes', 'pasos', 'implementos', 'sugerencia', 'is_active', 'owner')
+        fields = ('id', 'nombre', 'imagen', 'region', 'porciones', 'tiempo_preparacion', 'me_gustas', 'compartidos',
+                  'ingredientes', 'pasos', 'implementos', 'sugerencia',  'is_active')
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):

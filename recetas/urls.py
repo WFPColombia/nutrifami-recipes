@@ -16,6 +16,8 @@ router.register(r'recetas', views.RecetaViewSet)
 router.register(r'ingredientes', views.IngredienteViewSet)
 router.register(r'implementos', views.ImplementoViewSet)
 router.register(r'versiones', views.VersionViewSet)
+router.register(r'me-gustas', views.MeGustaViewSet)
+router.register(r'comportidos', views.CompartidoViewSet)
 
 
 schema_view = get_schema_view(title='Pastebin API')

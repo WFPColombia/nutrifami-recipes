@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from recetas.models import Receta, Ingrediente, Implemento, Version
-from recetas.serializers import RecetaSerializer, IngredienteSerializer, ImplementoSerializer, VersionSerializer
+from recetas.models import Receta, Ingrediente, Implemento, Version, MeGusta, Compartido
+from recetas.serializers import RecetaSerializer, IngredienteSerializer, ImplementoSerializer, VersionSerializer, MeGustaSerializer, CompartidoSerializer
 from rest_framework import mixins, generics, permissions, viewsets
 from rest_framework.decorators import api_view, detail_route
 from rest_framework.response import Response
@@ -45,6 +45,22 @@ class ImplementoViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class MeGustaViewSet(viewsets.ModelViewSet):
+    queryset = MeGusta.objects.all()
+    serializer_class = MeGustaSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+
+class CompartidoViewSet(viewsets.ModelViewSet):
+    queryset = Compartido.objects.all()
+    serializer_class = CompartidoSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
 
 
 class VersionViewSet(viewsets.ModelViewSet):
