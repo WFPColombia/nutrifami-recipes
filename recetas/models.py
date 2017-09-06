@@ -125,6 +125,21 @@ class Receta (models.Model):
         return self.nombre
 
 
+class Compartido (models.Model):
+    receta = models.ForeignKey(
+        Receta, related_name='compartidos', on_delete=models.CASCADE)
+    fecha = models.DateTimeField(auto_now_add=True)
+    usuario_id = models.PositiveSmallIntegerField(
+        help_text='Id de usuario que interactua')
+
+    class Meta:
+        verbose_name_plural = "Compartidos"
+        ordering = ['receta', 'usuario_id']
+
+    def __unicode__(self):
+        return unicode(self.receta)
+
+
 class MeGusta (models.Model):
     receta = models.ForeignKey(
         Receta, related_name='me_gustas', on_delete=models.CASCADE)
@@ -141,32 +156,8 @@ class MeGusta (models.Model):
         return unicode(self.receta)
 
 
-class Compartido (models.Model):
-    receta = models.ForeignKey(
-        Receta, related_name='compartidos', on_delete=models.CASCADE)
-    fecha = models.DateTimeField(auto_now_add=True)
-    usuario_id = models.PositiveSmallIntegerField(
-        help_text='Id de usuario que interactua')
-
-    class Meta:
-        verbose_name_plural = "Compartidos"
-        unique_together = ('receta', 'usuario_id')
-        ordering = ['receta', 'usuario_id']
-
-    def __unicode__(self):
-        return unicode(self.receta)
-
-
 @receiver(post_save, sender=Receta, dispatch_uid="update_version")
-def update_version(sender, instance=None, **kwargs):
-    Version.objects.create()
-
-
-@receiver(post_save, sender=MeGusta, dispatch_uid="update_version")
-def update_version(sender, instance=None, **kwargs):
-    Version.objects.create()
-
-
 @receiver(post_save, sender=Compartido, dispatch_uid="update_version")
+@receiver(post_save, sender=MeGusta, dispatch_uid="update_version")
 def update_version(sender, instance=None, **kwargs):
     Version.objects.create()

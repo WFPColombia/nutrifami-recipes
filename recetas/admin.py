@@ -68,7 +68,7 @@ class VersionAdmin(admin.ModelAdmin):
 class MeGustaAdmin(admin.ModelAdmin):
 
     def receta_id(self, obj):
-        return obj.receta
+        return obj.receta.id
 
     list_display = ('receta_id', 'receta', 'fecha', 'usuario_id')
 
@@ -76,7 +76,7 @@ class MeGustaAdmin(admin.ModelAdmin):
 class CompartidoAdmin(admin.ModelAdmin):
 
     def receta_id(self, obj):
-        return obj.receta
+        return obj.receta.id
 
     list_display = ('receta_id', 'receta', 'fecha', 'usuario_id')
 
