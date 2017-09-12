@@ -10,14 +10,6 @@ from ckeditor.fields import RichTextField
 
 # Create your models here.
 
-UNIDADES_CHOICES = (
-    ('Kilogramos', 'Kilogramos'),
-    ('Gramos', 'Gramos'),
-    ('Unidades', 'Unidades'),
-    ('Tazas', 'Tazas'),
-    ('Cucharadas', 'Cucharadas'),
-)
-
 
 def path_and_rename(path):
     def wrapper(instance, filename):
@@ -50,13 +42,24 @@ class Version(models.Model):
         return (str(self.version)+". "+str(self.fecha))
 
 
+class Unidad(models.Model):
+    unidad = models.CharField(max_length=200)
+
+    class Meta:
+        verbose_name_plural = "Unidades"
+
+    def __unicode__(self):
+        return self.unidad
+
+
 class Ingrediente(models.Model):
     nombre = models.CharField(
         max_length=200, help_text='Nombre como es conocido comúnmente el ingrediente',)
     nombre2 = models.CharField(
         max_length=200, help_text='Otro nombre con el que pueda ser reconocido el alimento', blank=True, null=True, verbose_name='otros nombres')
-    cantidad = models.PositiveSmallIntegerField()
-    unidad = models.CharField(max_length=80, choices=UNIDADES_CHOICES)
+    cantidad = models.CharField(max_length=5)
+    unidad = models.ForeignKey(
+        Unidad, related_name='ingredientes', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Ingredientes"
@@ -129,7 +132,7 @@ class Compartido (models.Model):
     receta = models.ForeignKey(
         Receta, related_name='compartidos', on_delete=models.CASCADE)
     fecha = models.DateTimeField(auto_now_add=True)
-    usuario_id = models.PositiveSmallIntegerField(
+    usuario_id = models.IntegerField(
         help_text='Id de usuario que interactua')
 
     class Meta:
@@ -144,7 +147,7 @@ class MeGusta (models.Model):
     receta = models.ForeignKey(
         Receta, related_name='me_gustas', on_delete=models.CASCADE)
     fecha = models.DateTimeField(auto_now_add=True)
-    usuario_id = models.PositiveSmallIntegerField(
+    usuario_id = models.IntegerField(
         help_text='Id de usuario que interactua')
 
     class Meta:
