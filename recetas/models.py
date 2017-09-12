@@ -65,7 +65,7 @@ class Ingrediente(models.Model):
         verbose_name_plural = "Ingredientes"
 
     def __unicode__(self):
-        return "%s (%d %s)" % (self.nombre, self.cantidad, self.unidad)
+        return "%s (%s %s)" % (self.nombre, self.cantidad, self.unidad.unidad)
 
 
 class Implemento(models.Model):

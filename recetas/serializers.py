@@ -3,11 +3,20 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 from rest_framework import serializers
-from recetas.models import Receta, Ingrediente, Implemento, Version, Paso, MeGusta, Compartido
+from recetas.models import Receta, Ingrediente, Unidad, Implemento, Version, Paso, MeGusta, Compartido
 from django.contrib.auth.models import User
 
 
+class UnidadSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Unidad
+        fields = ('unidad',)
+
+
 class IngredienteSerializer(serializers.ModelSerializer):
+
+    unidad = UnidadSerializer(read_only=True)
 
     class Meta:
         model = Ingrediente

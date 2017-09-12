@@ -6,7 +6,7 @@ from django.contrib import admin
 from django import forms
 from django.contrib import admin
 from django.core.files.images import get_image_dimensions
-from recetas.models import Receta, Ingrediente, Implemento, Paso, Version, MeGusta, Compartido
+from recetas.models import Receta, Ingrediente, Implemento, Paso, Version, MeGusta, Compartido, Unidad
 
 
 class RecetaForm(forms.ModelForm):
@@ -49,6 +49,11 @@ class IngredienteAdmin(admin.ModelAdmin):
     ordering = ('nombre',)
 
 
+class UnidadAdmin(admin.ModelAdmin):
+    list_display = ('unidad',)
+    ordering = ('unidad',)
+
+
 class ImplepementoAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'descripcion')
     search_fields = ('nombre',)
@@ -82,6 +87,7 @@ class CompartidoAdmin(admin.ModelAdmin):
 
 admin.site.register(Receta, RecetaAdmin)
 admin.site.register(Ingrediente, IngredienteAdmin)
+admin.site.register(Unidad, UnidadAdmin)
 admin.site.register(Implemento, ImplepementoAdmin)
 admin.site.register(Paso, PasoAdmin)
 admin.site.register(Version, VersionAdmin)
