@@ -57,6 +57,8 @@ class Ingrediente(models.Model):
         max_length=200, help_text='Nombre como es conocido comúnmente el ingrediente',)
     nombre2 = models.CharField(
         max_length=200, help_text='Otro nombre con el que pueda ser reconocido el alimento', blank=True, null=True, verbose_name='otros nombres')
+    estado = models.CharField(
+        max_length=200, help_text='Estado del ingrediente para la receta (Ej. Cocido, rallado, picado finamente, etc)', blank=True, null=True)
     cantidad = models.CharField(max_length=5)
     unidad = models.ForeignKey(
         Unidad, related_name='ingredientes', on_delete=models.CASCADE)

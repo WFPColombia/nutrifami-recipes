@@ -20,7 +20,7 @@ class IngredienteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ingrediente
-        fields = ('nombre', 'nombre2', 'cantidad', 'unidad')
+        fields = ('nombre', 'nombre2', 'estado', 'cantidad', 'unidad')
 
 
 class ImplementoSerializer(serializers.ModelSerializer):

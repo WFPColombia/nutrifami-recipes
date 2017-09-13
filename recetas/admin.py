@@ -42,9 +42,9 @@ class RecetaAdmin(admin.ModelAdmin):
 
 
 class IngredienteAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'nombre2', 'cantidad', 'unidad')
-    search_fields = ('nombre', 'nombre2')
-    list_filter = ('unidad',)
+    list_display = ('nombre', 'nombre2', 'cantidad', 'unidad', 'estado')
+    search_fields = ('nombre', 'nombre2', 'estado')
+    list_filter = ('unidad', 'estado')
     # filter_horizontal = ('unidad', 'cantidad')
     ordering = ('nombre',)
 
