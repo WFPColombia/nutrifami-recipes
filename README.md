@@ -1,2 +1,2 @@
 # nutrifami-recipes
-Recipes services for nutrifamiapp
+Recipes services for nutrifami mobile
