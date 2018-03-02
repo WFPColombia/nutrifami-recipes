@@ -1,0 +1,12 @@
+{
+    "DEBUG": "True",
+    "SECRET_KEY": "my_secret_key",
+    "DATABASES":
+    {
+        "NAME": "database_name",
+        "USER": "root",
+        "PASSWORD": "",
+        "HOST": "127.0.0.1",
+        "PORT": ""
+    },
+}

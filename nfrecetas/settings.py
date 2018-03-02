@@ -11,26 +11,25 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-
 import platform
+import json
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MY_SETTINGS = json.load(open(BASE_DIR +"/nfrecetas/settings.json"))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')936-3sr09-zt6kbs89=6mcsak3z36ktl^4fi^_hsxh4dq7z^2'
+SECRET_KEY = MY_SETTINGS["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if platform.linux_distribution()[2] == 'Maipo':
-    DEBUG = False
-else:
-    DEBUG = True
+DEBUG = MY_SETTINGS["DEBUG"]
 
-ALLOWED_HOSTS = ["127.0.0.1", "recetas.nutrifami.org"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "recetas.nutrifami.org"]
 
 
 # Application definition
@@ -86,42 +85,23 @@ WSGI_APPLICATION = 'nfrecetas.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 
-if platform.linux_distribution()[2] == 'Maipo':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'nfrecetas',
-            'USER': 'nfrecetas',
-            'PASSWORD': 'nfrecetas.pro.2017.web',
-            'HOST': 'nutrifami.cwy5i3r1f6xk.us-east-1.rds.amazonaws.com',
-            'PORT': '3306',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': MY_SETTINGS["DATABASES"]["NAME"],
+        'USER':  MY_SETTINGS["DATABASES"]["USER"],
+        'PASSWORD': MY_SETTINGS["DATABASES"]["PASSWORD"],
+        'HOST': MY_SETTINGS["DATABASES"]["HOST"],
+        'PORT': MY_SETTINGS["DATABASES"]["PORT"],
     }
-    REST_FRAMEWORK = {
-        'DEFAULT_PERMISSION_CLASSES': (
-            #'rest_framework.permissions.IsAuthenticated',
-        ),
-        'DEFAULT_AUTHENTICATION_CLASSES': (
-            #'rest_framework.authentication.TokenAuthentication',
-        )
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'nfrecetas',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': '127.0.0.1',
-            'PORT': '',
-        }
-    }
-    REST_FRAMEWORK = {
-        'DEFAULT_PERMISSION_CLASSES': (
-        ),
-        'DEFAULT_AUTHENTICATION_CLASSES': (
-        )
-    }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators

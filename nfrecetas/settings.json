@@ -1,0 +1,12 @@
+{
+    "DEBUG": "True",
+    "SECRET_KEY": ")936-3sr09-zt6kbs89=6mcsak3z36ktl^4fi^_hsxh4dq7z^2",
+    "DATABASES":
+    {
+        "NAME": "nfrecetas",
+        "USER": "root",
+        "PASSWORD": "",
+        "HOST": "127.0.0.1",
+        "PORT": ""
+    }
+}
